@@ -70,13 +70,42 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+    where
+        T:PartialOrd
 	{
-		//TODO
-		Self {
-            length: 0,
-            start: None,
-            end: None,
+		let mut merge_list=LinkedList::new();
+        let mut a_ptr=list_a.start;
+        let mut b_ptr=list_b.start;
+
+        while let(Some(a_node),Some(b_node))=(a_ptr,b_ptr){
+            unsafe{
+                match(&(*a_node.as_ptr()).val,&(*b_node.as_ptr()).val){
+                    (a_val,b_val)if a_val<b_val=>{
+                        merge_list.add((*a_node.as_ptr()).val);
+                        a_ptr=(*a_node.as_ptr()).next;
+                    }
+                    _=>{
+                        merge_list.add((*b_node.as_ptr()).val);
+                        b_ptr=(*b_node.as_ptr()).next;
+                    }
+                }
+            }
         }
+
+        while let Some(a_node)=a_ptr{
+            unsafe{
+                merge_list.add((*a_node.as_ptr()).val);
+                a_ptr=(*a_node.as_ptr()).next;
+            }
+        }
+
+        while let Some(b_node)=b_ptr{
+            unsafe{
+                merge_list.add((*b_node.as_ptr()).val);
+                b_ptr=(*b_node.as_ptr()).next;
+            }
+        }
+        merge_list
 	}
 }
 
