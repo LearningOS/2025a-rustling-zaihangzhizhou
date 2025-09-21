@@ -71,7 +71,7 @@ impl<T> LinkedList<T> {
     }
 	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
     where
-        T:PartialOrd
+        T:PartialOrd+Copy
 	{
 		let mut merge_list=LinkedList::new();
         let mut a_ptr=list_a.start;
