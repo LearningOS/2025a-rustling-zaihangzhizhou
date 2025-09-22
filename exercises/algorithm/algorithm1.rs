@@ -105,7 +105,8 @@ impl<T> LinkedList<T> {
                 current_b=node_b.next;
             }
         }
-        merge_list
+        //merge_list
+        new::LinkedList();
 	}
 }
 
